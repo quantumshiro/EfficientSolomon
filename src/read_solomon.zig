@@ -42,4 +42,21 @@ const poly = struct {
         }
         return pow(a, 254);
     }
+
+    pub fn xor(a: []GF, b: []GF) []GF {
+        var x = a;
+        var y = b;
+        if (a.len < b.len) {
+            x = b;
+            y = a;
+        }
+
+        var res: [x.len]GF = a;
+
+        for (y) |i| {
+            res[i] = x[i] ^ y[i];
+        }
+
+        return res;
+    }
 };
