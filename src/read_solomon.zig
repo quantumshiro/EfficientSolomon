@@ -22,4 +22,17 @@ const poly = struct {
         }
         return res;
     }
+
+    pub fn pow(a: GF, x: i32) GF {
+        var res: u8 = 1;
+        var cur = a;
+        while (x > 0) {
+            if (x & 1 != 0) {
+                res = mul(res, cur);
+            }
+            cur = mul(cur, cur);
+            x >>= 1;
+        }
+        return res;
+    }
 };
