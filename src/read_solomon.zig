@@ -59,4 +59,26 @@ const poly = struct {
 
         return res;
     }
+
+    pub fn div(a: []GF, b: []GF) std.meta.Tuple(&[_]type{ []GF, []GF }) {
+        if (b.len == 0) {
+            @panic("division by zero");
+        }
+
+        var x = a;
+        const y = b;
+
+        var res: [x.len]GF = undefined;
+
+        while (x.len >= y.len) {
+            const shift = x.len - y.len;
+            const factor = x[x.len - 1] ^ y[y.len - 1];
+            var cur = [0]GF;
+            cur[shift] = factor;
+            res = xor(res, cur);
+            x = xor(x, mul(y, factor));
+        }
+
+        return std.meta.Tuple(&[_]type{ []GF, []GF }){ res, x };
+    }
 };
