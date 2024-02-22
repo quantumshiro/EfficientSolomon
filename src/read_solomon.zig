@@ -35,4 +35,11 @@ const poly = struct {
         }
         return res;
     }
+
+    pub fn inv(a: GF) GF {
+        if (a == 0) {
+            @panic("division by zero");
+        }
+        return pow(a, 254);
+    }
 };
